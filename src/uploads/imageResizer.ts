@@ -60,7 +60,10 @@ export default async function resizeAndSave({
 
   const promises = imageSizes
     .map(async (desiredSize) => {
-      if (!needsResize(desiredSize, dimensions)) {
+      if (
+        config.upload.resizeOptions?.withoutEnlargement === true &&
+        !needsResize(desiredSize, dimensions)
+      ) {
         sizeData[desiredSize.name] = {
           url: null,
           width: null,
